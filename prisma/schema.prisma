@@ -32,19 +32,16 @@ model Account{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   type String
-  // Fields for google and facebook sign in or login
   provider String
   providerAccountId String
   refresh_token String? @db.String
   access_token String? @db.String
-  // end
-  expiers_at Int?
+  expires_at Int?
   token_type String?
   scope String?
   id_token String? @db.String
   session_state String?
 
-// This is Relation to connect this model with user model by id
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
