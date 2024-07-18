@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BsSearch, BsBell } from "react-icons/bs";
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -10,20 +10,42 @@ import NavbarItem from "./NavbarItem";
 import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
+    // variables for mobile menu
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const toggleMobileMenu = useCallback(() => {
     setShowMobileMenu((current) => !current);
   }, []);
 
+//   variables for profile menu
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-
   const toggleProfileMenu = useCallback(() => {
     setShowProfileMenu((current) => !current);
   }, []);
 
+//   variables for background
+  const [showBackground, setShowBackground] = useState(false);
+  const TOP_OFFSET = 66;
+
+  useEffect(() => {
+    const handleScroll = () => {
+        if(window.scrollY >= TOP_OFFSET){
+            setShowBackground(true);
+        }else{
+            setShowBackground(false);
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+
+    return () => {
+         window.removeEventListener("scroll", handleScroll);
+    }
+  }, [])
+
   return (
     <nav className="w-full fixed z-40 ">
-      <div className="px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 bg-zinc-900 bg-opacity-90">
+      <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? "bg-zinc-900 bg-opacity-90" : ""}`}>
         <img className="h-4 lg:h-6" src="/logo.svg" alt="Site Logo" />
         <div className="flex-row ml-8 gap-7 hidden lg:flex text-[12px] font-semibold">
           <NavbarItem label="Home" />
