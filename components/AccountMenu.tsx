@@ -25,7 +25,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
           <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
             <FaPencil className="text-gray text-lg" />
             <p className="text-white font-medium text-[12px] group-hover/item:underline">
-              Username
+              Manage Profiles
             </p>
           </div>
           <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
